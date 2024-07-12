@@ -77,6 +77,16 @@ contract BankUnitTest is Test {
         console.log("t3", block.timestamp);
     }
 
+    function test_snapShot() public {
+        console.log("t1", block.timestamp);
+        uint256 snapShotId = vm.snapshot();
+        skip(1 days);
+        console.log("t2", block.timestamp);
+        vm.revertTo(snapShotId);
+        console.log("revert to t1");
+        console.log("t3", block.timestamp);
+    }
+
     function test_depositSimple() public {
         uint256 amount = 1e18;
         // add token to alice
@@ -106,6 +116,7 @@ contract BankUnitTest is Test {
     }
 
     function test_depositZero() public {
+        // try: console.log in Bank.sol to see where the revert happens
         bank.deposit(0);
     }
 
