@@ -108,7 +108,7 @@ contract BankUnitTest is Test {
         // check the alice's balance in bank is correct
         assertEq(bank.balances(ALICE) - aliceBankBalBf, amount, "invalid bank balance");
         // check the last deposit time of alice is correct
-        assertEq(bank.lastDepositTimestaps(ALICE), block.timestamp, "invalid last deposit time");
+        assertEq(bank.lastDepositTimestamps(ALICE), block.timestamp, "invalid last deposit time");
         // note: check StdAssertions to see more assert for testing
         // ex:
         // - assertApproxEqAbs => absolute diff

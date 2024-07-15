@@ -56,7 +56,7 @@ contract UsdtBankTest is Test {
         // check the alice's balance in bank is correct
         assertEq(bank.balances(ALICE) - aliceBankBalBf, amount, "invalid bank balance");
         // check the last deposit time of alice is correct
-        assertEq(bank.lastDepositTimestaps(ALICE), block.timestamp, "invalid last deposit time");
+        assertEq(bank.lastDepositTimestamps(ALICE), block.timestamp, "invalid last deposit time");
     }
 
     // =========================== fuzz test ===========================
@@ -82,7 +82,7 @@ contract UsdtBankTest is Test {
         // check the alice's balance in bank is correct
         assertEq(bank.balances(ALICE) - aliceBankBalBf, amount, "invalid bank balance");
         // check the last deposit time of alice is correct
-        assertEq(bank.lastDepositTimestaps(ALICE), block.timestamp, "invalid last deposit time");
+        assertEq(bank.lastDepositTimestamps(ALICE), block.timestamp, "invalid last deposit time");
     }
 
     function test_fuzzWithdraw(uint256 amount) public {
@@ -107,7 +107,7 @@ contract UsdtBankTest is Test {
         uint256 bankBalBf = IERC20(token).balanceOf(address(bank));
         uint256 aliceBankBalBf = bank.balances(ALICE);
         uint256 bobBankBalBf = bank.balances(BOB);
-        uint256 aliceLastDepositTime = bank.lastDepositTimestaps(ALICE);
+        uint256 aliceLastDepositTime = bank.lastDepositTimestamps(ALICE);
         // bob deposit
         uint256 bobAmount = 2 * 100 * 1e6;
         deal(token, BOB, bobAmount);
@@ -125,13 +125,13 @@ contract UsdtBankTest is Test {
         // check the bob's balance in bank is correct
         assertEq(bank.balances(BOB) - bobBankBalBf, bobAmount, "invalid bank balance");
         // check the last deposit time of bob is correct
-        assertEq(bank.lastDepositTimestaps(BOB), block.timestamp, "invalid last deposit time");
+        assertEq(bank.lastDepositTimestamps(BOB), block.timestamp, "invalid last deposit time");
         // check the balance of alice is not changed
         assertEq(aliceBalBf - IERC20(token).balanceOf(ALICE), 0, "invalid alice balance");
         // check the alice's balance in bank is not changed
         assertEq(bank.balances(ALICE) - aliceBankBalBf, 0, "invalid bank balance");
         // check the last deposit time of alice is not changed
-        assertEq(bank.lastDepositTimestaps(ALICE), aliceLastDepositTime, "invalid last deposit time");
+        assertEq(bank.lastDepositTimestamps(ALICE), aliceLastDepositTime, "invalid last deposit time");
     }
 
     function test_twoUserDepositAliceWithdraw() public {

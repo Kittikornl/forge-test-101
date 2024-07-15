@@ -11,7 +11,7 @@ contract Bank {
     bool public isOpened;
     uint256 public maxBalance;
     mapping(address => uint256) public balances;
-    mapping(address => uint256) public lastDepositTimestaps;
+    mapping(address => uint256) public lastDepositTimestamps;
 
     constructor(address asset_) {
         OWNER = msg.sender;
@@ -46,7 +46,7 @@ contract Bank {
         // console.log("test2");
         // update
         balances[msg.sender] += amount;
-        lastDepositTimestaps[msg.sender] = block.timestamp;
+        lastDepositTimestamps[msg.sender] = block.timestamp;
         // interact
         IERC20(asset).transferFrom(msg.sender, address(this), amount);
     }
@@ -55,7 +55,7 @@ contract Bank {
         // check
         require(amount > 0, "zero withdraw");
         require(balances[msg.sender] >= amount, "insufficient balance");
-        require(block.timestamp >= lastDepositTimestaps[msg.sender] + LOCK_PERIOD, "locked");
+        require(block.timestamp >= lastDepositTimestamps[msg.sender] + LOCK_PERIOD, "locked");
         // update
         balances[msg.sender] -= amount;
         // interact
