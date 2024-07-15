@@ -8,7 +8,7 @@ contract SafeBank {
     using SafeERC20 for IERC20;
 
     uint256 public constant LOCK_PERIOD = 1 days;
-    address public immutable OWNNER;
+    address public immutable OWNER;
     address public asset;
     bool public isOpened;
     uint256 public maxBalance;
@@ -16,13 +16,13 @@ contract SafeBank {
     mapping(address => uint256) public lastDepositTimestamps;
 
     constructor(address asset_) {
-        OWNNER = msg.sender;
+        OWNER = msg.sender;
         asset = asset_;
         maxBalance = type(uint128).max;
     }
 
     modifier onlyOwner() {
-        require(msg.sender == OWNNER, "not owner");
+        require(msg.sender == OWNER, "not owner");
         _;
     }
 
